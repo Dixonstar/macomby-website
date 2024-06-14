@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MACOMBY - Restaurant Africain</title>
+    <title>MA COMBY - Restaurant Africain</title>
     <link rel="stylesheet" href="styles.css">
     <script>
         function showBookingPage() {
@@ -29,7 +29,16 @@
                 Heure: ${formData.get('time')}
                 Nombre de convives: ${formData.get('guests')}
             `;
+
+            // Simulate sending email by opening mail client
             window.location.href = `mailto:xyz@yahoo.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Show confirmation message
+            setTimeout(() => {
+                alert("Merci pour votre réservation! Nous avons reçu votre demande.");
+                showMainPage();
+                window.location.hash = '#home';
+            }, 1000); // Display confirmation message after 1 second
         }
 
         function showImageDetails(imageId) {
@@ -135,7 +144,7 @@
                     </div>
                     <div class="welcome-message">
                         <h2>Bienvenue chez MA COMBY</h2>
-                        <p>Nous sommes ravis de vous accueillir. Chez MA COMBY, nous apportons les saveurs de l'Afrique à votre table avec une touche d'élégance et d'authenticité. Notre passion est de vous offrir une expérience culinaire inoubliable à travers nos délicieux repas et notre hospitalité chaleureuse. Profitez de votre temps avec nous !</p>
+                        <p>Nous sommes ravis de vous accueillir. Chez MACOMBY, nous apportons les saveurs de l'Afrique à votre table avec une touche d'élégance et d'authenticité. Notre passion est de vous offrir une expérience culinaire inoubliable à travers nos délicieux repas et notre hospitalité chaleureuse. Profitez de votre temps avec nous !</p>
                     </div>
                 </div>
             </section>
