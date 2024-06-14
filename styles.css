@@ -61,7 +61,7 @@ header::after {
 /* Hero Section Styles */
 .hero {
     background: url('images/hero-bg.jpg') no-repeat center center/cover;
-    color: #000000;
+    color: #FFFAFA;
     height: 80vh;
     display: flex;
     align-items: center;
