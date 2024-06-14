@@ -13,6 +13,7 @@
 
         function showMainPage() {
             document.getElementById('booking-page').style.display = 'none';
+            document.getElementById('menu-page').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
         }
 
@@ -33,12 +34,16 @@
             // Simulate sending email by opening mail client
             window.location.href = `mailto:xyz@yahoo.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             
-            // Show confirmation message
+            // Show confirmation modal
             setTimeout(() => {
-                alert("Merci pour votre réservation! Nous avons reçu votre demande.");
-                showMainPage();
-                window.location.hash = '#home';
-            }, 1000); // Display confirmation message after 1 second
+                document.getElementById('confirmation-modal').style.display = 'block';
+            }, 1000); // Display confirmation modal after 1 second
+        }
+
+        function closeModal() {
+            document.getElementById('confirmation-modal').style.display = 'none';
+            showMainPage();
+            window.location.hash = '#home';
         }
 
         function showImageDetails(imageId) {
@@ -81,6 +86,11 @@
             detailWindow.document.close();
         }
 
+        function showMenuDetails() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('menu-page').style.display = 'block';
+        }
+
         // Smooth scrolling for internal links
         document.addEventListener("DOMContentLoaded", function() {
             const links = document.querySelectorAll('a[href^="#"]');
@@ -107,7 +117,7 @@
                 <ul>
                     <li><a href="#home">Accueil</a></li>
                     <li><a href="#about">À propos</a></li>
-                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#menu">Carte du Restaurant</a></li>
                     <li><a href="#gallery">Galerie</a></li>
                     <li><a href="#testimonials">Témoignages</a></li>
                     <li><a href="#contact">Contact</a></li>
@@ -151,8 +161,11 @@
 
             <section id="menu">
                 <div class="container">
-                    <h2>Notre Menu</h2>
+                    <h2>Carte du Restaurant</h2>
                     <p>Découvrez notre délicieux menu proposant des plats africains traditionnels préparés avec des ingrédients frais et locaux. Des entrées aux desserts, chaque plat est préparé à la perfection.</p>
+                    <div class="menu-button">
+                        <button class="btn" onclick="showMenuDetails()">À la carte</button>
+                    </div>
                 </div>
             </section>
 
@@ -232,6 +245,47 @@
                 <button type="submit" class="btn">Réserver maintenant</button>
                 <button type="button" class="btn" onclick="showMainPage()">Retour</button>
             </form>
+        </div>
+    </div>
+
+    <div id="menu-page" style="display: none;">
+        <div class="container">
+            <h2>Menu et Prix</h2>
+            <div class="menu-details">
+                <p><strong>Grillades</strong></p>
+                <p>Maquereau braisé ...................20 €</p>
+                <p>Bar braisé..........................25 €</p>
+				<p>Porc braisé.........................10 €</p>
+				<p>Tandon de boeuf.....................10 €</p>
+				<p>Ailes de poulet.....................10 €</p>
+				<p>Malangwa braisé.....................25 €</p>
+				<p>Gambas braisé/ sauté................25 €</p>
+				<p>Brochettes de boeuf.................10 €</p>
+				<p>Sol braisée.........................30 €</p>
+				<p>Tilapia braisé......................15 €</p>
+				<p>Soya de boeuf.......................10 €</p>
+                <p><strong>Plats aux légumes</strong></p>
+                <p>Ndolè viande........................15 €</p>
+				<p>Ndolè poisson fumé..................18 €</p>
+				<p>Ndolè royal.........................25 €</p>
+				<p>Tapioca & eru (peau+ viande)........15 €</p>
+				<p>Tapioca & eru.......................20 €</p>
+				<p>Folon viande (sauté)................20 €</p>
+				<p>Folon poisson fumé (sauté)..........20 €</p>
+				<p>Poulet dg...........................20 €</p>
+                <p>Thieboudienne: 17€</p>
+                <p><strong>Desserts</strong></p>
+                <p>Tarte Tatin: 6€</p>
+                <p>Salade de fruits: 5€</p>
+            </div>
+            <button type="button" class="btn" onclick="showMainPage()">Retour</button>
+        </div>
+    </div>
+
+    <div id="confirmation-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Merci pour votre réservation! Nous avons reçu votre demande.</p>
         </div>
     </div>
 
