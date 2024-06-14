@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MACOMBY - Restaurant Africain</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function showBookingPage() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('booking-page').style.display = 'block';
+        }
+
+        function showMainPage() {
+            document.getElementById('booking-page').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }
+
+        function sendBookingEmail(event) {
+            event.preventDefault();
+            const form = document.getElementById('booking-form');
+            const formData = new FormData(form);
+            const subject = 'Demande de réservation de table';
+            const body = `
+                Nom: ${formData.get('name')}
+                Email: ${formData.get('email')}
+                Téléphone: ${formData.get('phone')}
+                Date: ${formData.get('date')}
+                Heure: ${formData.get('time')}
+                Nombre de convives: ${formData.get('guests')}
+            `;
+            window.location.href = `mailto:xyz@yahoo.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        function showImageDetails(imageId) {
+            const images = {
+                'meal1': 'Détails sur le repas 1...',
+                'meal2': 'Détails sur le repas 2...',
+                'meal3': 'Détails sur le repas 3...',
+                'meal4': 'Détails sur le repas 4...'
+            };
+            const detailPageContent = `
+                <html lang="fr">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Détails de l'image</title>
+                    <link rel="stylesheet" href="styles.css">
+                </head>
+                <body>
+                    <header>
+                        <div class="container">
+                            <h1>Détails de l'image</h1>
+                            <nav>
+                                <ul>
+                                    <li><a href="#" onclick="window.close()">Fermer</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </header>
+                    <main>
+                        <div class="container">
+                            <h2>${imageId}</h2>
+                            <p>${images[imageId]}</p>
+                        </div>
+                    </main>
+                </body>
+                </html>
+            `;
+            const detailWindow = window.open("", "_blank");
+            detailWindow.document.write(detailPageContent);
+            detailWindow.document.close();
+        }
+
+        // Smooth scrolling for internal links
+        document.addEventListener("DOMContentLoaded", function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="Logo MACOMBY">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#about">À propos</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#gallery">Galerie</a></li>
+                    <li><a href="#testimonials">Témoignages</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="javascript:void(0);" onclick="showBookingPage()">Réserver une table</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="main-content">
+        <section id="home" class="hero">
+            <div class="container">
+                <h2>Bienvenue chez MACOMBY</h2>
+                <p>Votre destination pour une cuisine africaine authentique</p>
+                <a href="javascript:void(0);" class="btn" onclick="showBookingPage()">Réserver une table</a>
+            </div>
+        </section>
+
+        <main>
+            <section id="about">
+                <div class="container">
+                    <h2>À propos de nous</h2>
+                    <p>Bienvenue chez MACOMBY, un restaurant africain authentique offrant une expérience culinaire unique. Nos chefs créent des plats délicieux inspirés des recettes traditionnelles africaines, garantissant un voyage culinaire inoubliable.</p>
+                </div>
+            </section>
+
+            <section id="welcome">
+                <div class="container welcome-section">
+                    <div class="welcome-video">
+                        <video controls>
+                            <source src="videos/welcome-video.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la balise vidéo.
+                        </video>
+                    </div>
+                    <div class="welcome-message">
+                        <h2>Bienvenue chez MACOMBY</h2>
+                        <p>Nous sommes ravis de vous accueillir. Chez MACOMBY, nous apportons les saveurs de l'Afrique à votre table avec une touche d'élégance et d'authenticité. Notre passion est de vous offrir une expérience culinaire inoubliable à travers nos délicieux repas et notre hospitalité chaleureuse. Profitez de votre temps avec nous !</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="menu">
+                <div class="container">
+                    <h2>Notre Menu</h2>
+                    <p>Découvrez notre délicieux menu proposant des plats africains traditionnels préparés avec des ingrédients frais et locaux. Des entrées aux desserts, chaque plat est préparé à la perfection.</p>
+                </div>
+            </section>
+
+            <section id="gallery">
+                <div class="container">
+                    <h2>Galerie</h2>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" onclick="showImageDetails('meal1')">
+                            <img src="images/meal1.jpg" alt="Repas 1">
+                        </div>
+                        <div class="gallery-item" onclick="showImageDetails('meal2')">
+                            <img src="images/meal2.jpg" alt="Repas 2">
+                        </div>
+                        <div class="gallery-item" onclick="showImageDetails('meal3')">
+                            <img src="images/meal3.jpg" alt="Repas 3">
+                        </div>
+                        <div class="gallery-item" onclick="showImageDetails('meal4')">
+                            <img src="images/meal4.jpg" alt="Repas 4">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="testimonials">
+                <div class="container">
+                    <h2>Témoignages</h2>
+                    <div class="testimonial">
+                        <p>"La meilleure nourriture africaine que j'aie jamais mangée ! Je recommande vivement MACOMBY pour une expérience culinaire délicieuse."</p>
+                        <p>- John Doe</p>
+                    </div>
+                    <div class="testimonial">
+                        <p>"Ambiance incroyable et nourriture fantastique. Un restaurant à visiter absolument pour tous ceux qui aiment la cuisine africaine authentique."</p>
+                        <p>- Jane Smith</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact">
+                <div class="container">
+                    <h2>Contactez-nous</h2>
+                    <p>Adresse : 123 Rue de la Cuisine Africaine, Ville, Pays</p>
+                    <p>Téléphone : +123 456 7890</p>
+                    <p>Email : contact@macomby.com</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="booking-page" style="display: none;">
+        <div class="container">
+            <h2>Réserver une table</h2>
+            <form id="booking-form" onsubmit="sendBookingEmail(event)">
+                <div class="form-group">
+                    <label for="name">Nom :</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Téléphone :</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date :</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Heure :</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="guests">Nombre de convives :</label>
+                    <input type="number" id="guests" name="guests" required>
+                </div>
+                <button type="submit" class="btn">Réserver maintenant</button>
+                <button type="button" class="btn" onclick="showMainPage()">Retour</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MACOMBY. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>
